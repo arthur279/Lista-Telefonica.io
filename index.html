@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css.css" />
+    <script src="Vue3.js"></script>
+    <title>PROPS EN VUE</title>
+</head>
+<body>
+    <header>
+        <h1>PROPS EN VUE</h1>
+    </header>
+    
+    <section id="seccion">
+      <article>
+        <table>
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Categoría</th>
+            <th>Mensajes</th>
+            <th>Llamadas</th>
+            <th>Eliminar contactos</th>
+          </tr>
+          <tr v-for="(agenda, i) in agendas" :class="{fondo: agenda.mensajes || agenda.llamadas}">
+            <td>{{ agenda.nombre }}</td>
+            <td>{{ agenda.telefono }}</td>
+            <td>{{ agenda.Categoria }}</td>
+            <td>
+              <button @click="agenda.mensajes++" :disabled="agenda.mensajes == 25">+</button>
+              <input type="text" v-model.number="agenda.mensajes">
+              <button @click="agenda.mensajes--" :disabled="agenda.mensajes == 0">-</button>
+            </td>
+            <td>
+              <button @click="agenda.llamadas++" :disabled="agenda.llamadas == 15">+</button>
+              <input type="text" v-model.number="agenda.llamadas">
+              <button @click="agenda.llamadas--" :disabled="agenda.llamadas == 0">-</button>
+            </td>
+            <td><button @click="eliminar(i)">Eliminar</button></td>
+          </tr>
+          <tr>
+            <td colspan="6" id="titulos">
+              <p>Número de contactos: {{ estadisticas.numeroContactos }}</p>
+              <p>Total de mensajes: {{ totalMensajes }}</p>
+              <p>Total de llamadas: {{ totalLlamadas }}</p>
+            </td>
+          </tr>
+        </table>
+      </article>
+      <fieldset class="col-6">
+        <legend>Nuevo contacto</legend>
+        Nombre:
+        <input type="text" v-model="nuevoNombre">
+        Teléfono:
+        <input type="number" v-model.number="nuevoTelef">
+        Categoría:
+        <select v-model='nuevoCat'>
+          <option>Familia</option>
+          <option>Amigos</option>
+          <option>Trabajo</option>
+          <option>Limon</option>
+        </select>
+        <button @click="agregar">Agregar</button>
+      </fieldset>
+    </section>
+
+    <script src="js.js"></script>
+</body>
+</html>
+
